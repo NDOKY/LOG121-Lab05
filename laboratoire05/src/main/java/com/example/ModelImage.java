@@ -1,6 +1,7 @@
 package com.example;
 
 public class ModelImage extends Subject {
+    
     private String image;
     
     public ModelImage(String image){

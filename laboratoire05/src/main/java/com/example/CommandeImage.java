@@ -1,6 +1,6 @@
 package com.example;
 
-public interface Commande {
+public interface CommandeImage {
 
     public void executer();
     

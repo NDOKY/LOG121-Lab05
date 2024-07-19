@@ -11,6 +11,8 @@ import java.io.IOException;
 /**
  * JavaFX App
  */
+//branch de alex pour commit
+
 public class App extends Application {
 
     private static Scene scene;
@@ -22,6 +24,7 @@ public class App extends Application {
         stage.show();
     }
 
+
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
@@ -32,7 +35,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        launch();   
     }
 
 }
