@@ -1,9 +1,13 @@
 package com.example;
 
-public class Sauvegarder implements Commande{
+public class Sauvegarder implements CommandeImage{
     
     public void executer(){
-        System.out.println("Sauvegarde effectuée");
+       
+        //Sauvegarder le fichier dans nos fichiers 
+
+
+
     }   
     
 }
