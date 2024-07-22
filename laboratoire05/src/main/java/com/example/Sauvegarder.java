@@ -1,9 +1,40 @@
 package com.example;
 
-public class Sauvegarder implements Commande{
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Sauvegarder implements Commande, Serializable{
+
+    Observer vf;
+    Observer vp01;
+    Observer vp02;
+    ArrayList<Observer> mArrayList = new ArrayList<>();
+
+    public Sauvegarder(VueFixe vf, VuePerspective01 vp01, VuePerspective02 vp02){
+
+        this.vf = vf;
+        this.vp01 = vp01;
+        this.vp02 = vp02;
+
+    }
     
     public void executer(){
-        System.out.println("Sauvegarde effectuée");
+        
+        try {
+
+            FileOutputStream fileOut = new FileOutputStream("Image.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fileOut);
+            mArrayList.add(vf);
+            mArrayList.add(vp01);
+            mArrayList.add(vp02);
+            oos.writeObject(mArrayList);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }   
     
 }
