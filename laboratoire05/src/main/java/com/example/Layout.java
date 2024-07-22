@@ -5,6 +5,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+//commentaires pour la classe Layout
+//cette classe est responsable de la création de l'interface graphique de l'application
+//elle contient une méthode build qui prend en paramètre un stage et qui construit l'interface graphique
+//elle crée un menuBar, un menu fichier, un menu edition, un menu presse papier
+//elle crée des items pour chaque menu
 
 public class Layout {
 
