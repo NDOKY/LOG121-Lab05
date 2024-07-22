@@ -2,7 +2,7 @@ package com.example;
 
 public class VueFixe implements Observer{
     
-    public void update(){
+    public void display(){
         System.out.println("VueFixe a été notifié");
     }   
     
