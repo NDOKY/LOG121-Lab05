@@ -2,11 +2,9 @@ package com.example;
 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+
 
 public class Layout {
 
