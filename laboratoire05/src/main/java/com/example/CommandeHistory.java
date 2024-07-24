@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CommandeHistory {
     
-    private List<Commande> commandes = new ArrayList<Commande>();
+    private List<CommandeImage> commandes = new ArrayList<CommandeImage>();
     private static CommandeHistory instance = null;
 
     public static CommandeHistory getInstance(){
@@ -16,11 +16,11 @@ public class CommandeHistory {
         return instance;
     }
 
-    public void push(Commande c){
+    public void push(CommandeImage c){
         //ajoute une commande à la liste
 
     }
-    public Commande pop(){
+    public CommandeImage pop(){
         //retire la dernière commande de la liste
         return null;
     }
