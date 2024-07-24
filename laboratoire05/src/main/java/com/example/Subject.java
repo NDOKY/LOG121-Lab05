@@ -4,7 +4,10 @@ public abstract class Subject {
     
     public Observer observer;
 
-    
+    public void updateObserver(){
+        
+    }
+
     public void notifyObserver(){
         
     }  
