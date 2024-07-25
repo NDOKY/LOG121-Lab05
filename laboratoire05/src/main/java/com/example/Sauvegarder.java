@@ -13,7 +13,7 @@ public class Sauvegarder implements Commande, Serializable{
     Observer vp02;
     ArrayList<Observer> mArrayList = new ArrayList<>();
 
-    public Sauvegarder(VueFixe vf, VuePerspective01 vp01, VuePerspective02 vp02){
+    public Sauvegarder(VueFixe vf, VuePerspective vp01, VuePerspective vp02){
 
         this.vf = vf;
         this.vp01 = vp01;
