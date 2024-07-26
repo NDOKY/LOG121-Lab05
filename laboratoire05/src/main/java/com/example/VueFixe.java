@@ -6,8 +6,5 @@ public class VueFixe implements Observer{
         System.out.println("VueFixe a été notifié");
     }   
 
-    public void display() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
     
 }

@@ -6,7 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Charger implements Commande, Serializable{
+public class Charger implements CommandeImage, Serializable{
 
     Observer vf;
     Observer vp01;
@@ -14,8 +14,6 @@ public class Charger implements Commande, Serializable{
     ArrayList<Observer> mArrayList = new ArrayList<>();
 
 
-
-    
     public void executer(){
         try {
             FileInputStream fileIn = new FileInputStream("Image.ser");
