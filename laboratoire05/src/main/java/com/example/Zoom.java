@@ -1,9 +1,23 @@
 package com.example;
 
-public class Zoom  implements Commande{
+import javafx.scene.image.ImageView;
+
+public class Zoom implements CommandeImage{
+
+    private ImageView img;
+    private Double valeurHeight = 0.0;
+    private Double valeurWidth = 0.0;
     
+    public Zoom(ImageView img, Double valeurHeight, Double valeurWidth) {
+        this.img = img;
+        this.valeurHeight = valeurHeight;
+        this.valeurWidth = valeurWidth;
+    }
+
+    @Override
     public void executer(){
-        System.out.println("Zoom a été exécuté");
+        img.setFitHeight(valeurHeight);
+        img.setFitWidth(valeurWidth);
     }
     
 }
