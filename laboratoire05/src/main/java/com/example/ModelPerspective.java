@@ -36,6 +36,6 @@ public class ModelPerspective extends Subject {
     
     public void setPerspective(String perspective){
         this.perspective = perspective;
-        this.notifyObserver();
+        //this.notifyObserver();
     }
 }
