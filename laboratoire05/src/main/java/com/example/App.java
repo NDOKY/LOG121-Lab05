@@ -7,6 +7,7 @@ import java.io.IOException;
 /**
  * JavaFX App
  */
+
 public class App extends Application {
 
     @Override
@@ -19,3 +20,5 @@ public class App extends Application {
         launch(args);
     }
 }
+
+

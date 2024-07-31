@@ -12,11 +12,11 @@ public abstract class Subject {
         
     }  
 
-    public void addObserver(Observer observer){
+    public void addObserver(Observer vueAjoute){
         
     }
     
-    public void removeObserver(Observer observer){
+    public void removeObserver(Observer vueRetire){
         
     }
 

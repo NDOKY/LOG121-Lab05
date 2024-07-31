@@ -9,24 +9,25 @@ public class CommandeHistory {
     private List<CommandeImage> commandes = new ArrayList<CommandeImage>();
     private static CommandeHistory instance = null;
 
-    public static CommandeHistory getInstance(){
+    private CommandeHistory(CommandeImage cmdImage) {
+        this.commandes.add(cmdImage);
+    }
+
+    public static CommandeHistory getInstance(CommandeImage cmdImage){
         if(instance == null){
-            instance = new CommandeHistory();
+            instance = new CommandeHistory(cmdImage);
         }
         return instance;
     }
 
     public void push(CommandeImage c){
         //ajoute une commande à la liste
+        //lorsqu'une commande est faite
 
     }
     public CommandeImage pop(){
         //retire la dernière commande de la liste
         return null;
-    }
-
-    private CommandeHistory(){
-
     }
 
 }
