@@ -13,16 +13,15 @@ public class VuePerspective implements Observer{
     
     
     
-    public VuePerspective(/* String nomPerspective */) {
-        //this.nomPerspective = nomPerspective;
-        
-        imageView02.setFitWidth(800/3);
-        imageView02.setFitHeight(600);
-        imageView03.setFitWidth(800/3);
-        imageView03.setFitHeight(600);
+    public VuePerspective() {
 
         imageView02.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
         imageView03.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
+
+    }
+
+    @Override
+    public void display(){
 
         imageView02.setOnScroll((ScrollEvent event) -> {
             double zoomFactor = 1.05;
@@ -54,13 +53,42 @@ public class VuePerspective implements Observer{
 
     }
 
-    public void display(Double heightDouble, Double widthDouble){
-        imageView02.setFitWidth(widthDouble/3);
-        imageView02.setFitHeight(heightDouble);
-        imageView03.setFitWidth(widthDouble/3);
-        imageView03.setFitHeight(heightDouble);
 
-    }
+    /* public void setScroll(){
+
+        //modelPerspective.setScaleXY(heigthDouble, widthDouble);
+        //modelPerspective.setScaleY(heigthDouble);
+        //image.
+
+        imageView02.setOnScroll((ScrollEvent event) -> {
+            double zoomFactor = 1.05;
+            double deltaY = event.getDeltaY();
+            
+            if (deltaY < 0){
+                zoomFactor = 0.95;
+            }
+            imageView02.setScaleX(imageView02.getScaleX() * zoomFactor);
+            imageView02.setScaleY(imageView02.getScaleY() * zoomFactor);
+            event.consume();
+            //System.out.println("test du scroll02");
+        });
+        //image.display(heigthDouble, widthDouble);
+
+        imageView03.setOnScroll((ScrollEvent event) -> {
+            double zoomFactor = 1.05;
+            double deltaY = event.getDeltaY();
+            
+            if (deltaY < 0){
+                zoomFactor = 0.95;
+            }
+            imageView03.setScaleX(imageView03.getScaleX() * zoomFactor);
+            imageView03.setScaleY(imageView03.getScaleY() * zoomFactor);
+            event.consume();
+            //System.out.println("test du scroll03");
+        }); 
+
+
+    }*/
 
 
 }

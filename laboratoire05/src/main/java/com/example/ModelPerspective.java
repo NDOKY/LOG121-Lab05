@@ -6,7 +6,21 @@ public class ModelPerspective extends Subject {
     
     private String perspective;
     ArrayList<Observer> listModelPerspective = new ArrayList<>();
+    Double scaleX = 0.0;
+    Double scaleY = 0.0;
 
+    public void setScaleXY(Double scaleX, Double scaleY) {
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+        this.notifyObserver(scaleX, scaleY);
+    }
+    
+    public Double getScaleX() {
+        return scaleX;
+    }
+    public Double getScaleY() {
+        return scaleY;
+    }
     @Override
     public void addObserver(Observer vueAjoute){
         listModelPerspective.add(vueAjoute);
@@ -20,7 +34,7 @@ public class ModelPerspective extends Subject {
 
         for (Observer elem : listModelPerspective) {
 
-            elem.display(heightDouble, widthDouble);
+            elem.display();
             
         }
 

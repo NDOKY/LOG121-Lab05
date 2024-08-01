@@ -7,50 +7,40 @@ import javafx.scene.input.ScrollEvent;
 
 public class ControleurImage {
     
-    private ModelPerspective perspective;
-    private VuePerspective image;
+    private ModelPerspective modelPerspective;
+    private VuePerspective vuePerspective;
     Double heigthDouble = 0.0;
     Double widthDouble = 0.0;
     ImageView img;
 
-    // Constructor to initialize models
-    public ControleurImage(ImageView img) {
-        //this.perspective = perspective;
-        //this.image = image;
-        this.img = img;
+    public ControleurImage(ModelPerspective modelPerspective, VuePerspective vuePerspective){
+        this.modelPerspective = modelPerspective;
+        this.vuePerspective = vuePerspective;
+        this.modelPerspective.addObserver(vuePerspective);
     }
+
+    // Constructor to initialize models
+
     
     // Event handler for mouse drag
     public EventHandler<MouseEvent> getMouseDragEventHandler() {
         return new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                perspective.setPerspective("Movement");
+                modelPerspective.setPerspective("Movement");
                 //image.setImage("Movement");
             }
         };
     }
 
     public void updateView(){
-        //image.
 
-        img.setOnScroll((ScrollEvent event) -> {
-            double zoomFactor = 1.05;
-            double deltaY = event.getDeltaY();
-            
-            if (deltaY < 0){
-                zoomFactor = 0.95;
-            }
-            img.setScaleX(img.getScaleX() * zoomFactor);
-            img.setScaleY(img.getScaleY() * zoomFactor);
-            event.consume();
-            System.out.println("test du scroll");
-        });
-        //image.display(heigthDouble, widthDouble);
+        //this.setScroll();
+        this.vuePerspective.display();
 
     }
 
-    
+
 
     // Event handler for mouse wheel
     /* public EventHandler<ScrollEvent> getMouseWheelEventHandler() {

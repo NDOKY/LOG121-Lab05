@@ -96,7 +96,7 @@ public class Layout {
         borderPane.setCenter(gridPane);
 
         Scene scene = new Scene(borderPane, 800, 600);
-        controleurImage = new ControleurImage(imageView01);
+        controleurImage = new ControleurImage(modelPerspective, imgPerspective);
         controleurImage.updateView();
         primaryStage.setScene(scene);
         primaryStage.show();
