@@ -3,9 +3,12 @@ package com.example;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
+
+
 
 //commentaires pour la classe Layout
 //cette classe est responsable de la création de l'interface graphique de l'application
@@ -63,11 +66,15 @@ public class Layout {
         imageView03.setFitWidth(800/3);
         imageView03.setFitHeight(600);
 
+        // Create borders using StackPane and Rectangle
+        StackPane pane1 = createBorderedPane(imageView01);
+        StackPane pane2 = createBorderedPane(imageView02);
+        StackPane pane3 = createBorderedPane(imageView03);
 
         //add the image views to the gridpane
-        gridPane.add(imageView01, 0, 0);
-        gridPane.add(imageView02, 1, 0);
-        gridPane.add(imageView03, 2, 0);
+        gridPane.add(pane1, 0, 0);
+        gridPane.add(pane2, 1, 0);
+        gridPane.add(pane3, 2, 0);
 
         //add a constraint to the gridpane to make the image views take the whole space of the gridpane
         ColumnConstraints column1 = new ColumnConstraints();
@@ -91,4 +98,18 @@ public class Layout {
         primaryStage.show();
 
     }
+    // Method to create a bordered pane
+    private StackPane createBorderedPane(ImageView imageView) {
+    StackPane stackPane = new StackPane();
+    stackPane.getChildren().add(imageView);
+
+    // Create a border using Rectangle
+    Rectangle border = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
+    border.setFill(Color.TRANSPARENT); // Transparent fill for the rectangle
+    border.setStroke(Color.BLUE); // Blue stroke color for the border
+    border.setStrokeWidth(2); // Set the stroke width for better visibility
+    stackPane.getChildren().add(border);
+
+    return stackPane;
+}
 }
