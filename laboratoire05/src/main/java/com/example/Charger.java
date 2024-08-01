@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 public class Charger implements CommandeImage, Serializable{
 
+    
     Observer vf;
     Observer vp01;
     Observer vp02;
     ArrayList<Observer> mArrayList = new ArrayList<>();
-
 
     public void executer(){
         try {

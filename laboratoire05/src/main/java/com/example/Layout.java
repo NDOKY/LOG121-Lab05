@@ -9,6 +9,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 
 
 
@@ -102,17 +105,18 @@ public class Layout {
         column3.setPercentWidth(33.33);
         gridPane.getColumnConstraints().addAll(column1, column2, column3);
 
-    
         //add in an image in a view for testing purposes
         //imageView01.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
         //imageView02.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
         //imageView03.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
-
+        //utiliser la classe charger pour charger les images
+        
         borderPane.setCenter(gridPane);
 
         Scene scene = new Scene(borderPane, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
+
 
         // Create MenuView observer for the loadImageItem
         VueMenu menuView = new VueMenu(loadImageItem, primaryStage, imageView01,imageView02,imageView03);
@@ -134,6 +138,7 @@ public class Layout {
         stackPane.getChildren().add(border);
 
         return stackPane;
+
     }
 }
 

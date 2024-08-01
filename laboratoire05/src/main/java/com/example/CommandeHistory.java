@@ -22,6 +22,7 @@ public class CommandeHistory {
 
     public void push(CommandeImage c){
         //ajoute une commande à la liste
+        //lorsqu'une commande est faite
 
     }
     public CommandeImage pop(){

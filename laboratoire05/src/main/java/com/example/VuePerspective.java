@@ -1,4 +1,5 @@
 package com.example;
+import javafx.scene.image.Image;
 
 public class VuePerspective implements Observer{
 
@@ -11,6 +12,7 @@ public class VuePerspective implements Observer{
 
     public void display(){
         System.out.println("VuePerspective01 a été notifié");
+        
     }
 
 
