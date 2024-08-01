@@ -1,5 +1,6 @@
 package com.example;
 
+
 public abstract class Subject {
     
     public Observer observer;

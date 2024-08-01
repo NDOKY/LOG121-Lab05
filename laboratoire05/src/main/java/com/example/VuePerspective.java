@@ -1,19 +1,24 @@
 package com.example;
+
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class VuePerspective implements Observer{
+public class VuePerspective implements Observer {
+    private ImageView imageView;
+    private String imagePath;
 
-    String nomPerspective;
-    
-    
-    public VuePerspective(String nomPerspective) {
-        this.nomPerspective = nomPerspective;
+    public VuePerspective(ImageView imageView) {
+        this.imageView = imageView;
     }
 
-    public void display(){
-        System.out.println("VuePerspective01 a été notifié");
-        
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
-
+    @Override
+    public void display() {
+        if (imagePath != null) {
+            imageView.setImage(new Image(imagePath));
+        }
+    }
 }

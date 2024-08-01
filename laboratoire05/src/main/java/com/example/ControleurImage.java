@@ -1,44 +1,27 @@
 package com.example;
 
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
-import javafx.event.EventHandler;
+import javafx.scene.image.Image;
 
 public class ControleurImage {
-    
+    private ModelImage model;
     private ModelPerspective perspective;
-    private ModelImage image;
+    private Charger charger;
 
-    // Constructor to initialize models
-    public ControleurImage(ModelPerspective perspective, ModelImage image) {
+    public ControleurImage(ModelImage model, ModelPerspective perspective) {
+        this.model = model;
         this.perspective = perspective;
-        this.image = image;
-    }
-    
-    // Event handler for mouse drag
-    public EventHandler<MouseEvent> getMouseDragEventHandler() {
-        return new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                perspective.setPerspective("Movement");
-                image.setImage("Movement");
-            }
-        };
     }
 
-    // Event handler for mouse wheel
-    public EventHandler<ScrollEvent> getMouseWheelEventHandler() {
-        return new EventHandler<ScrollEvent>() {
-            @Override
-            public void handle(ScrollEvent event) {
-                if (event.getDeltaY() > 0) {
-                    perspective.setPerspective("Zoom In");
-                    image.setImage("Zoom In");
-                } else {
-                    perspective.setPerspective("Zoom Out");
-                    image.setImage("Zoom Out");
-                }
-            }
-        };
+    public void loadImage(String imagePath) {
+        model.setImage(imagePath);
+    }
+
+    public void loadFromFile(String filePath) {
+        charger = new Charger(filePath);  // Initialize Charger with the file path
+        charger.executer();
+        Image loadedImage = charger.getLoadedImage();
+        if (loadedImage != null) {
+            model.setImage(loadedImage.getUrl());  // Update model with image URL
+        }
     }
 }

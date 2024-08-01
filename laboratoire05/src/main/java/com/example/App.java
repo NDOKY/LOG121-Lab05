@@ -2,23 +2,18 @@ package com.example;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import java.io.IOException;
-
-/**
- * JavaFX App
- */
 
 public class App extends Application {
-
     @Override
-    public void start(Stage stage) throws IOException {
-        Layout layout = new Layout();
-        layout.build(stage); // Pass the primary stage to the build method
+    public void start(Stage stage) {
+        ModelImage model = new ModelImage("");
+        ModelPerspective perspective = new ModelPerspective("");
+        ControleurImage controller = new ControleurImage(model, perspective);
+        Layout layout = new Layout(model, perspective, controller);
+        layout.build(stage);
     }
 
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 }
-
-
