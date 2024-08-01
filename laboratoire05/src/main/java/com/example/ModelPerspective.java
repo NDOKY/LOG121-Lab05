@@ -40,8 +40,8 @@ public class ModelPerspective extends Subject {
 
     }
     
-    public ModelPerspective(String perspective){
-        this.perspective = perspective;
+    public ModelPerspective(){
+        //this.perspective = perspective;
     }
     
     public String getPerspective(){

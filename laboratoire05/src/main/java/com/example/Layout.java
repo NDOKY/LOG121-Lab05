@@ -1,12 +1,9 @@
 package com.example;
 
-import java.util.ArrayList;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -25,7 +22,7 @@ import javafx.stage.Stage;
 //elle crée des items pour chaque menu
 
 public class Layout {
-    private ArrayList<Observer> observers = new ArrayList<>();
+/*     private ArrayList<Observer> observers = new ArrayList<>();
 
     public void addObserver(Observer observer) {
         observers.add(observer);
@@ -40,12 +37,12 @@ public class Layout {
             observer.display();
         }
     }
-
+ */
     public void build(Stage primaryStage) {
         primaryStage.setTitle("Image Editor");
 
         VuePerspective imgPerspective = new VuePerspective();
-        ModelPerspective modelPerspective = new ModelPerspective(null);
+        ModelPerspective modelPerspective = new ModelPerspective();
         ControleurImage controleurImage; /* new ControleurImage(modelPerspective, imgPerspective); */
 
 
@@ -83,26 +80,26 @@ public class Layout {
         
         //create 3 image view for the 3 perspectives
         ImageView imageView01 = new ImageView();
-        ImageView imageView02 = new ImageView();
-        ImageView imageView03 = new ImageView();
+        ImageView imageView02 = imgPerspective.imageView02;
+        ImageView imageView03 = imgPerspective.imageView03;
         // give them a set size witdh and height that will be displayed in the gridpane
         // the size and witdh has to take the third of the gridpane size
         imageView01.setFitWidth(800/3);
         imageView01.setFitHeight(600);
-        /* imageView02.setFitWidth(800/3);
+        imageView02.setFitWidth(800/3);
         imageView02.setFitHeight(600);
         imageView03.setFitWidth(800/3);
-        imageView03.setFitHeight(600); */
+        imageView03.setFitHeight(600); 
 
         // Create borders using StackPane and Rectangle
         StackPane pane1 = createBorderedPane(imageView01);
-        StackPane pane2 = createBorderedPane(imageView02);
-        StackPane pane3 = createBorderedPane(imageView03);
+        //StackPane pane2 = createBorderedPane(imgPerspective.imageView02);
+        //StackPane pane3 = createBorderedPane(imgPerspective.imageView03);
 
         //add the image views to the gridpane
         gridPane.add(pane1, 0, 0);
-        gridPane.add(pane2, 1, 0);
-        gridPane.add(pane3, 2, 0);
+        gridPane.add(imgPerspective.pane2, 1, 0);
+        gridPane.add(imgPerspective.pane3, 2, 0);
 
         //add a constraint to the gridpane to make the image views take the whole space of the gridpane
         ColumnConstraints column1 = new ColumnConstraints();
@@ -114,7 +111,7 @@ public class Layout {
         gridPane.getColumnConstraints().addAll(column1, column2, column3);
 
         //add in an image in a view for testing purposes
-        imageView01.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
+        //imageView01.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
         //imageView02.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
         //imageView03.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
         //utiliser la classe charger pour charger les images
@@ -129,12 +126,12 @@ public class Layout {
 
 
         // Create MenuView observer for the loadImageItem
-        VueMenu menuView = new VueMenu(loadImageItem, primaryStage, imageView01,imageView02,imageView03);
+        VueMenu menuView = new VueMenu(loadImageItem, primaryStage, imageView01,imgPerspective.imageView02,imgPerspective.imageView03);
 
-        controleurImage = new ControleurImage(modelPerspective, imgPerspective);
+        /* controleurImage = new ControleurImage(modelPerspective, imgPerspective);
         controleurImage.updateView();
-
-        addObserver(menuView);
+ */
+        //addObserver(menuView);
     }
 
 

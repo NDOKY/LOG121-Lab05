@@ -1,8 +1,10 @@
 package com.example;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class VuePerspective implements Observer{
 
@@ -11,19 +13,23 @@ public class VuePerspective implements Observer{
     ImageView imageView03 = new ImageView();
     Zoom zz;
     
+    StackPane pane2 = createBorderedPane(imageView02);
+    StackPane pane3 = createBorderedPane(imageView03);
+    
     
     
     public VuePerspective() {
 
-        imageView02.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
-        imageView03.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
+
+        //imageView02.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
+        //imageView03.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
 
     }
 
     @Override
     public void display(){
 
-        imageView02.setOnScroll((ScrollEvent event) -> {
+        pane2.setOnScroll((ScrollEvent event) -> {
             double zoomFactor = 1.05;
             double deltaY = event.getDeltaY();
             
@@ -35,9 +41,10 @@ public class VuePerspective implements Observer{
 
             zz = new Zoom(imageView02, imageView02.getScaleX() * zoomFactor, imageView02.getScaleY() * zoomFactor);
             zz.executer();
+            System.out.println("test du scroll02");
         });
 
-        imageView03.setOnScroll((ScrollEvent event) -> {
+        pane3.setOnScroll((ScrollEvent event) -> {
             double zoomFactor = 1.05;
             double deltaY = event.getDeltaY();
             
@@ -49,10 +56,26 @@ public class VuePerspective implements Observer{
 
             zz = new Zoom(imageView03, imageView03.getScaleX() * zoomFactor, imageView03.getScaleY() * zoomFactor);
             zz.executer();
+            System.err.println("test du scroll03");
         });
 
     }
 
+
+    private StackPane createBorderedPane(ImageView imageView) {
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().add(imageView);
+
+        // Create a border using Rectangle
+         Rectangle border = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
+        border.setFill(Color.TRANSPARENT); // Transparent fill for the rectangle
+        border.setStroke(Color.BLUE); // Blue stroke color for the border
+        border.setStrokeWidth(2); // Set the stroke width for better visibility
+        stackPane.getChildren().add(border);
+
+        return stackPane;
+
+    }
 
     /* public void setScroll(){
 
