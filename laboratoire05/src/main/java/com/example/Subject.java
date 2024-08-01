@@ -8,7 +8,7 @@ public abstract class Subject {
         
     }
 
-    public void notifyObserver(){
+    public void notifyObserver(Double heightDouble, Double widthDouble){
         
     }  
 

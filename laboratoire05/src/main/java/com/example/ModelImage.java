@@ -14,7 +14,7 @@ public class ModelImage extends Subject {
     
     public void setImage(String image){
         this.image = image;
-        this.notifyObserver();
+        //this.notifyObserver();
     }
     
 }
