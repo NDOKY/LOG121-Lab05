@@ -16,11 +16,11 @@ public class ModelPerspective extends Subject {
         listModelPerspective.remove(vueRetire);
     }
     @Override
-    public void notifyObserver(){
+    public void notifyObserver(Double heightDouble, Double widthDouble){
 
         for (Observer elem : listModelPerspective) {
 
-            elem.display();
+            elem.display(heightDouble, widthDouble);
             
         }
 

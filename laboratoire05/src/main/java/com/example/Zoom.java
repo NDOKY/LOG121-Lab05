@@ -16,8 +16,8 @@ public class Zoom implements CommandeImage{
 
     @Override
     public void executer(){
-        img.setFitHeight(valeurHeight);
-        img.setFitWidth(valeurWidth);
+        img.setScaleX(valeurHeight);
+        img.setScaleY(valeurWidth);
     }
     
 }

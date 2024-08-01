@@ -2,6 +2,6 @@ package com.example;
 
 public interface Observer {
 
-    public void display();
+    public void display(Double heightDouble, Double widthDouble);
     
 }
