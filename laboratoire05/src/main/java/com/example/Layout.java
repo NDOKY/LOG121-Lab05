@@ -1,5 +1,7 @@
 package com.example;
 
+import java.util.ArrayList;
+
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -17,6 +19,21 @@ import javafx.scene.image.ImageView;
 //elle crée des items pour chaque menu
 
 public class Layout {
+    private ArrayList<Observer> observers = new ArrayList<>();
+
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.display();
+        }
+    }
 
     public void build(Stage primaryStage) {
         primaryStage.setTitle("Image Editor");
@@ -97,19 +114,26 @@ public class Layout {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        // Create MenuView observer for the loadImageItem
+        VueMenu menuView = new VueMenu(loadImageItem, primaryStage, imageView01,imageView02,imageView03);
+
+        addObserver(menuView);
     }
+
+
     // Method to create a bordered pane
     private StackPane createBorderedPane(ImageView imageView) {
-    StackPane stackPane = new StackPane();
-    stackPane.getChildren().add(imageView);
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().add(imageView);
 
-    // Create a border using Rectangle
-    Rectangle border = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
-    border.setFill(Color.TRANSPARENT); // Transparent fill for the rectangle
-    border.setStroke(Color.BLUE); // Blue stroke color for the border
-    border.setStrokeWidth(2); // Set the stroke width for better visibility
-    stackPane.getChildren().add(border);
+        // Create a border using Rectangle
+         Rectangle border = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
+        border.setFill(Color.TRANSPARENT); // Transparent fill for the rectangle
+        border.setStroke(Color.BLUE); // Blue stroke color for the border
+        border.setStrokeWidth(2); // Set the stroke width for better visibility
+        stackPane.getChildren().add(border);
 
-    return stackPane;
+        return stackPane;
+    }
 }
-}
+
