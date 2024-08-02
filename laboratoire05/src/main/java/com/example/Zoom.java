@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 
 public class Zoom extends CommandeImage implements Serializable{
 
-    transient private ImageView img;
+    transient public ImageView img;
     public Double valeurHeight = 0.0;
     public Double valeurWidth = 0.0;
     
@@ -14,7 +14,7 @@ public class Zoom extends CommandeImage implements Serializable{
         this.img = img; 
         this.valeurHeight = valeurHeight;
         this.valeurWidth = valeurWidth;
-        CommandeHistory.getInstance().push(Zoom.this);
+        CommandeHistory.getInstance(Zoom.this);
     }
 
     public double getX(){

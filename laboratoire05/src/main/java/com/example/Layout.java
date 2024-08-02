@@ -28,22 +28,6 @@ import javafx.stage.Stage;
 //elle crée des items pour chaque menu
 
 public class Layout {
-/*     private ArrayList<Observer> observers = new ArrayList<>();
-
-    public void addObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
-
-    public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.display();
-        }
-    }
- */
 
     public void build(Stage primaryStage) {
         primaryStage.setTitle("Image Editor");
@@ -101,8 +85,6 @@ public class Layout {
 
         // Create borders using StackPane and Rectangle
         StackPane pane1 = createBorderedPane(vf.img01);
-        //StackPane pane2 = createBorderedPane(imgPerspective.imageView02);
-        //StackPane pane3 = createBorderedPane(imgPerspective.imageView03);
 
         //add the image views to the gridpane
         gridPane.add(pane1, 0, 0);
@@ -131,10 +113,11 @@ public class Layout {
         // Create MenuView observer for the loadImageItem
         VueMenu menuView = new VueMenu(loadImageItem, primaryStage, imageView01,vp02.imageView02,vp03.imageView03);
 
-        /* controleurImage = new ControleurImage(modelPerspective, imgPerspective);
-        controleurImage.updateView();
- */
-        //addObserver(menuView);
+        undoItem.setOnAction((actionEvent) -> {
+            Undo undo = new Undo();
+
+            undo.executer();
+        });
 
         saveItem.setOnAction((actionEvent) -> {
             Sauvegarder save = new Sauvegarder(vf, vp02, vp03);
@@ -147,7 +130,6 @@ public class Layout {
             fileChooser.setTitle("Choisir perpesctive");
             File selectedFile = fileChooser.showOpenDialog(new Stage());
             ArrayList<Observer> mArrayList = new ArrayList<>();
-           // vf
 
             if(selectedFile != null){
                 try(FileInputStream fileIn = new FileInputStream(selectedFile);
@@ -160,14 +142,14 @@ public class Layout {
                     VuePerspective vp02Load = (VuePerspective)mArrayList.get(0);
                     VuePerspective vp03Load = (VuePerspective)mArrayList.get(1);
                     
-                    if(vp02Load.zz != null){
-                        vp02.zz.valeurHeight = vp02Load.zz.valeurHeight;
-                        vp02.zz.valeurWidth = vp02Load.zz.valeurWidth;
-                        vp02.zz.executer();
+                    if(vp02Load.zoom != null){
+                        vp02.zoom.valeurHeight = vp02Load.zoom.valeurHeight;
+                        vp02.zoom.valeurWidth = vp02Load.zoom.valeurWidth;
+                        vp02.zoom.executer();
 
-                        vp03.zz.valeurHeight = vp03Load.zz.valeurHeight;
-                        vp03.zz.valeurWidth = vp03Load.zz.valeurWidth;
-                        vp03.zz.executer();
+                        vp03.zoom.valeurHeight = vp03Load.zoom.valeurHeight;
+                        vp03.zoom.valeurWidth = vp03Load.zoom.valeurWidth;
+                        vp03.zoom.executer();
                     }
 
                     if(vp02Load.translation != null){

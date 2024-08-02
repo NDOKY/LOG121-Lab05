@@ -10,9 +10,7 @@ public class ControleurImage {
     private ModelPerspective modelPerspective;
     private VuePerspective vp02;
     private VuePerspective vp03;
-    Double heigthDouble = 0.0;
-    Double widthDouble = 0.0;
-    ImageView img;
+    CommandeHistory cmdHist;
 
     public ControleurImage(ModelPerspective modelPerspective, VuePerspective vp02, VuePerspective vp03) {
         this.modelPerspective = modelPerspective;
@@ -20,6 +18,8 @@ public class ControleurImage {
         this.vp03 = vp03;
         this.modelPerspective.addObserver(vp02);
         this.modelPerspective.addObserver(vp03);
+
+
     }
 
     // Constructor to initialize models
@@ -31,14 +31,27 @@ public class ControleurImage {
             @Override
             public void handle(MouseEvent event) {
                 modelPerspective.setPerspective("Movement");
-                // image.setImage("Movement");
             }
         };
     }
 
     public void updateView() {
-        // this.setScroll();
         this.vp02.display();
         this.vp03.display();
+
+        if(this.vp02.zoom !=null && this.vp02.translation != null){
+            cmdHist.push(this.vp02.zoom);
+            cmdHist.push(this.vp02.translation);
+            cmdHist = CommandeHistory.getInstance(this.vp02.zoom);
+            cmdHist = CommandeHistory.getInstance(this.vp02.translation);
+        }
+
+        if(this.vp03.zoom !=null && this.vp03.translation != null){
+            cmdHist.push(this.vp03.zoom);
+            cmdHist.push(this.vp03.translation);
+            cmdHist = CommandeHistory.getInstance(this.vp03.zoom);
+            cmdHist = CommandeHistory.getInstance(this.vp03.translation);
+        }
+
     }
 }

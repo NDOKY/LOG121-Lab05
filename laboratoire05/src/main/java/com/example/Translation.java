@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javafx.scene.image.ImageView;
 
-public class Translation extends CommandeImage implements  Serializable{
+public class Translation extends CommandeImage implements Serializable{
 
     transient ImageView img;
     Double posX = 0.0;
@@ -16,7 +16,7 @@ public class Translation extends CommandeImage implements  Serializable{
         this.img = img;
         this.posX = posX;
         this.posY = posY;
-        CommandeHistory.getInstance().push(Translation.this);
+        CommandeHistory.getInstance(Translation.this);
     }
 
     public double getX(){
@@ -33,6 +33,7 @@ public class Translation extends CommandeImage implements  Serializable{
 
         img.setTranslateX(posX);
         img.setTranslateY(posY);
+        
     }   
     
 }

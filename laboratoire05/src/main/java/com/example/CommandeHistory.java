@@ -8,33 +8,44 @@ public class CommandeHistory {
     
     private static CommandeHistory instance;
 
-    private List<CommandeImage> commandesHistory;
+    public static List<CommandeImage> commandesHistory;
     
-    private CommandeHistory() {
+    private CommandeHistory(CommandeImage cmd) {
         //contructeur privé pour ma classe singleton
         //initialise la liste de commandes
-        List<CommandeImage> commandesHistory = new ArrayList<CommandeImage>();
+        commandesHistory = new ArrayList<CommandeImage>();
+        commandesHistory.add(cmd);
     }
 
-    public static CommandeHistory getInstance(){
+    public static CommandeHistory getInstance(CommandeImage cmd){
         if(instance == null){
-            instance = new CommandeHistory();
+            instance = new CommandeHistory(cmd);
+        }
+        else{
+            commandesHistory.add(cmd);
         }
         return instance;
     }
 
     public void push(CommandeImage c){
         //ajoute une commande c à la liste commandes
-        //commandesHistory.add(c);
+        commandesHistory.add(c);
         
     }
     public CommandeImage pop(){
         //retire la dernière commande de la liste
-        /* if (commandesHistory.isEmpty()) {
+        CommandeImage cmd;
+        if (commandesHistory.isEmpty()) {
             return null; // or throw an exception, depending on your requirements
         }
-        return commandesHistory.remove(commandesHistory.size() - 1); */
-        return null;
+        else{
+            System.out.println("taille de la liste : " + commandesHistory.size());
+            cmd = commandesHistory.remove(commandesHistory.size() - 2);
+            //cmd = (Zoom)commandesHistory.remove(commandesHistory.size() - 1); 
+            
+        }
+        return cmd;
+        //return null;
     }
 
 }

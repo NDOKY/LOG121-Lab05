@@ -13,7 +13,7 @@ public class VuePerspective implements Observer, Serializable {
     String nomPerspective;
     transient ImageView imageView02 = new ImageView();
     transient ImageView imageView03 = new ImageView();
-    Zoom zz;
+    Zoom zoom;
     Translation translation;
 
     transient StackPane pane2 = createBorderedPane(imageView02);
@@ -40,10 +40,9 @@ public class VuePerspective implements Observer, Serializable {
             scaleX = imageView02.getScaleX() * zoomFactor;
             scaleY = imageView02.getScaleY() * zoomFactor;
 
-            zz = new Zoom(imageView02, scaleX , scaleY);
+            zoom = new Zoom(imageView02, scaleX , scaleY);
             
-            zz.executer();
-            System.out.println("test du scroll02");
+            zoom.executer();
             
             try {
                 if(imageView02.getScaleY() * zoomFactor > 800/3 || imageView02.getScaleX() * zoomFactor > 600){
@@ -67,10 +66,9 @@ public class VuePerspective implements Observer, Serializable {
 
             event.consume();
 
-            zz = new Zoom(imageView03, imageView03.getScaleX() * zoomFactor, imageView03.getScaleY() * zoomFactor);
+            zoom = new Zoom(imageView03, imageView03.getScaleX() * zoomFactor, imageView03.getScaleY() * zoomFactor);
             
-            zz.executer();
-            System.err.println("test du scroll03");
+            zoom.executer();
         });
 
         // Add mouse event handlers for dragging
