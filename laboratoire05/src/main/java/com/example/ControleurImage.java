@@ -19,8 +19,6 @@ public class ControleurImage {
         this.modelPerspective.addObserver(vuePerspective);
     }
 
-    // Constructor to initialize models
-
     
     // Event handler for mouse drag
     public EventHandler<MouseEvent> getMouseDragEventHandler() {

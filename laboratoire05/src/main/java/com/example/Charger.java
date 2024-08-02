@@ -6,7 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Charger implements CommandeImage, Serializable{
+public class Charger extends CommandeImage implements Serializable{
 
     
     Observer vf;

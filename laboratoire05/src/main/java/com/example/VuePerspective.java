@@ -40,8 +40,20 @@ public class VuePerspective implements Observer{
             event.consume();
 
             zz = new Zoom(imageView02, imageView02.getScaleX() * zoomFactor, imageView02.getScaleY() * zoomFactor);
+            
             zz.executer();
             System.out.println("test du scroll02");
+            
+            try {
+                if(imageView02.getScaleY() * zoomFactor > 800/3 || imageView02.getScaleX() * zoomFactor > 600){
+                    throw new Exception("La valeurHeight et la valeurWidth ne doivent pas etre plus grand que ni 800/3 ni 600 respectivement");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+
+
         });
 
         pane3.setOnScroll((ScrollEvent event) -> {
@@ -55,6 +67,7 @@ public class VuePerspective implements Observer{
             event.consume();
 
             zz = new Zoom(imageView03, imageView03.getScaleX() * zoomFactor, imageView03.getScaleY() * zoomFactor);
+            
             zz.executer();
             System.err.println("test du scroll03");
         });

@@ -6,28 +6,34 @@ import java.util.List;
 
 public class CommandeHistory {
     
-    private List<CommandeImage> commandes = new ArrayList<CommandeImage>();
-    private static CommandeHistory instance = null;
+    private static CommandeHistory instance;
 
-    private CommandeHistory(CommandeImage cmdImage) {
-        this.commandes.add(cmdImage);
+    private List<CommandeImage> commandesHistory;
+    
+    private CommandeHistory() {
+        //contructeur privé pour ma classe singleton
+        //initialise la liste de commandes
+        List<CommandeImage> commandesHistory = new ArrayList<CommandeImage>();
     }
 
-    public static CommandeHistory getInstance(CommandeImage cmdImage){
+    public static CommandeHistory getInstance(){
         if(instance == null){
-            instance = new CommandeHistory(cmdImage);
+            instance = new CommandeHistory();
         }
         return instance;
     }
 
     public void push(CommandeImage c){
-        //ajoute une commande à la liste
-        //lorsqu'une commande est faite
-
+        //ajoute une commande c à la liste commandes
+        commandesHistory.add(c);
+        
     }
     public CommandeImage pop(){
         //retire la dernière commande de la liste
-        return null;
+        if (commandesHistory.isEmpty()) {
+            return null; // or throw an exception, depending on your requirements
+        }
+        return commandesHistory.remove(commandesHistory.size() - 1);
     }
 
 }

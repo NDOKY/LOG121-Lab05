@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Sauvegarder implements CommandeImage, Serializable{
+public class Sauvegarder extends CommandeImage implements Serializable{
 
     Observer vf;
     Observer vp01;

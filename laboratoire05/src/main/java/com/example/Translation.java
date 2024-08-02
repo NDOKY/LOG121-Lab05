@@ -2,7 +2,7 @@ package com.example;
 
 import javafx.scene.image.ImageView;
 
-public class Translation implements CommandeImage{
+public class Translation extends CommandeImage{
 
     ImageView img;
     Double posX = 0.0;
@@ -16,6 +16,13 @@ public class Translation implements CommandeImage{
         this.posY = posY;
     }
 
+    public double getX(){
+        return img.getX();
+    }
+
+    public double getY(){
+        return img.getY();
+    }
 
 
     public void executer(){
