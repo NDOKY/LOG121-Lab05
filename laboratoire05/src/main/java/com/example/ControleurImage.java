@@ -8,15 +8,18 @@ import javafx.scene.input.ScrollEvent;
 public class ControleurImage {
 
     private ModelPerspective modelPerspective;
-    private VuePerspective vuePerspective;
+    private VuePerspective vp02;
+    private VuePerspective vp03;
     Double heigthDouble = 0.0;
     Double widthDouble = 0.0;
     ImageView img;
 
-    public ControleurImage(ModelPerspective modelPerspective, VuePerspective vuePerspective) {
+    public ControleurImage(ModelPerspective modelPerspective, VuePerspective vp02, VuePerspective vp03) {
         this.modelPerspective = modelPerspective;
-        this.vuePerspective = vuePerspective;
-        this.modelPerspective.addObserver(vuePerspective);
+        this.vp02 = vp02;
+        this.vp03 = vp03;
+        this.modelPerspective.addObserver(vp02);
+        this.modelPerspective.addObserver(vp03);
     }
 
     // Constructor to initialize models
@@ -35,6 +38,7 @@ public class ControleurImage {
 
     public void updateView() {
         // this.setScroll();
-        this.vuePerspective.display();
+        this.vp02.display();
+        this.vp03.display();
     }
 }

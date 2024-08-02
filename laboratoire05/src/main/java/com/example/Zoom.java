@@ -1,12 +1,14 @@
 package com.example;
 
+import java.io.Serializable;
+
 import javafx.scene.image.ImageView;
 
-public class Zoom extends CommandeImage{
+public class Zoom extends CommandeImage implements Serializable{
 
-    private ImageView img;
-    private Double valeurHeight = 0.0;
-    private Double valeurWidth = 0.0;
+    transient private ImageView img;
+    public Double valeurHeight = 0.0;
+    public Double valeurWidth = 0.0;
     
     public Zoom(ImageView img, Double valeurHeight, Double valeurWidth) {
         this.img = img; 

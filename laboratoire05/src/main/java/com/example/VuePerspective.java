@@ -1,21 +1,26 @@
 package com.example;
 
+import java.io.Serializable;
+
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class VuePerspective implements Observer {
+public class VuePerspective implements Observer, Serializable {
 
     String nomPerspective;
-    ImageView imageView02 = new ImageView();
-    ImageView imageView03 = new ImageView();
+    transient ImageView imageView02 = new ImageView();
+    transient ImageView imageView03 = new ImageView();
     Zoom zz;
+    Translation translation;
 
-    StackPane pane2 = createBorderedPane(imageView02);
-    StackPane pane3 = createBorderedPane(imageView03);
+    transient StackPane pane2 = createBorderedPane(imageView02);
+    transient StackPane pane3 = createBorderedPane(imageView03);
+
+    Double scaleX;
+    Double scaleY;
 
     public VuePerspective() {
         // Initialize the ImageViews if needed
@@ -32,8 +37,10 @@ public class VuePerspective implements Observer {
             }
 
             event.consume();
+            scaleX = imageView02.getScaleX() * zoomFactor;
+            scaleY = imageView02.getScaleY() * zoomFactor;
 
-            zz = new Zoom(imageView02, imageView02.getScaleX() * zoomFactor, imageView02.getScaleY() * zoomFactor);
+            zz = new Zoom(imageView02, scaleX , scaleY);
             
             zz.executer();
             System.out.println("test du scroll02");
@@ -87,12 +94,12 @@ public class VuePerspective implements Observer {
     private void addDragHandlers(ImageView imageView, StackPane pane) {
         final Delta dragDelta = new Delta();
 
-        imageView.setOnMousePressed(event -> {
+        pane.setOnMousePressed(event -> {
             dragDelta.x = imageView.getTranslateX() - event.getSceneX();
             dragDelta.y = imageView.getTranslateY() - event.getSceneY();
         });
 
-        imageView.setOnMouseDragged(event -> {
+        pane.setOnMouseDragged(event -> {
             double newTranslateX = event.getSceneX() + dragDelta.x;
             double newTranslateY = event.getSceneY() + dragDelta.y;
 
@@ -107,8 +114,9 @@ public class VuePerspective implements Observer {
             if (newTranslateY < minY) newTranslateY = minY;
             if (newTranslateY > maxY) newTranslateY = maxY;
 
-            imageView.setTranslateX(newTranslateX);
-            imageView.setTranslateY(newTranslateY);
+            translation = new Translation(imageView, newTranslateX, newTranslateY);
+            translation.executer();
+
         });
     }
 

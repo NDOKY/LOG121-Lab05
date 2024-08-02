@@ -1,5 +1,10 @@
 package com.example;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -11,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
@@ -42,7 +48,9 @@ public class Layout {
     public void build(Stage primaryStage) {
         primaryStage.setTitle("Image Editor");
 
-        VuePerspective imgPerspective = new VuePerspective();
+        VuePerspective vp02 = new VuePerspective();
+        VuePerspective vp03 = new VuePerspective();
+        VueFixe vf = new VueFixe();
         ModelPerspective modelPerspective = new ModelPerspective();
         ControleurImage controleurImage; /* new ControleurImage(modelPerspective, imgPerspective); */
 
@@ -80,27 +88,26 @@ public class Layout {
 
         
         //create 3 image view for the 3 perspectives
-        ImageView imageView01 = new ImageView();
-        ImageView imageView02 = imgPerspective.imageView02;
-        ImageView imageView03 = imgPerspective.imageView03;
+        ImageView imageView01 = vf.img01;
+        ImageView imageView02 = vp02.imageView02;
+        ImageView imageView03 = vp03.imageView03;
         // give them a set size witdh and height that will be displayed in the gridpane
         // the size and witdh has to take the third of the gridpane size
-        imageView01.setFitWidth(800/3);
-        imageView01.setFitHeight(600);
+        
         imageView02.setFitWidth(800/3);
         imageView02.setFitHeight(600);
         imageView03.setFitWidth(800/3);
         imageView03.setFitHeight(600); 
 
         // Create borders using StackPane and Rectangle
-        StackPane pane1 = createBorderedPane(imageView01);
+        StackPane pane1 = createBorderedPane(vf.img01);
         //StackPane pane2 = createBorderedPane(imgPerspective.imageView02);
         //StackPane pane3 = createBorderedPane(imgPerspective.imageView03);
 
         //add the image views to the gridpane
         gridPane.add(pane1, 0, 0);
-        gridPane.add(imgPerspective.pane2, 1, 0);
-        gridPane.add(imgPerspective.pane3, 2, 0);
+        gridPane.add(vp02.pane2, 1, 0);
+        gridPane.add(vp03.pane3, 2, 0);
 
         //add a constraint to the gridpane to make the image views take the whole space of the gridpane
         ColumnConstraints column1 = new ColumnConstraints();
@@ -111,30 +118,79 @@ public class Layout {
         column3.setPercentWidth(33.33);
         gridPane.getColumnConstraints().addAll(column1, column2, column3);
 
-        //add in an image in a view for testing purposes
-        //imageView01.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
-        //imageView02.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
-        //imageView03.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
-        //utiliser la classe charger pour charger les images
-        
+
         borderPane.setCenter(gridPane);
 
         Scene scene = new Scene(borderPane, 800, 600);
-        controleurImage = new ControleurImage(modelPerspective, imgPerspective);
+        controleurImage = new ControleurImage(modelPerspective, vp02, vp03);
         controleurImage.updateView();
         primaryStage.setScene(scene);
         primaryStage.show();
 
 
         // Create MenuView observer for the loadImageItem
-        VueMenu menuView = new VueMenu(loadImageItem, primaryStage, imageView01,imgPerspective.imageView02,imgPerspective.imageView03);
+        VueMenu menuView = new VueMenu(loadImageItem, primaryStage, imageView01,vp02.imageView02,vp03.imageView03);
 
         /* controleurImage = new ControleurImage(modelPerspective, imgPerspective);
         controleurImage.updateView();
  */
         //addObserver(menuView);
-    }
 
+        saveItem.setOnAction((actionEvent) -> {
+            Sauvegarder save = new Sauvegarder(vf, vp02, vp03);
+            save.executer();
+        });
+        
+        loadPerspectiveItem.setOnAction((actionEvent) -> {
+
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choisir perpesctive");
+            File selectedFile = fileChooser.showOpenDialog(new Stage());
+            ArrayList<Observer> mArrayList = new ArrayList<>();
+           // vf
+
+            if(selectedFile != null){
+                try(FileInputStream fileIn = new FileInputStream(selectedFile);
+                ObjectInputStream in = new ObjectInputStream(fileIn)){
+                
+                    mArrayList = (ArrayList<Observer>)in.readObject();
+                    in.close();
+                    fileIn.close();
+
+                    VuePerspective vp02Load = (VuePerspective)mArrayList.get(0);
+                    VuePerspective vp03Load = (VuePerspective)mArrayList.get(1);
+                    
+                    if(vp02Load.zz != null){
+                        vp02.zz.valeurHeight = vp02Load.zz.valeurHeight;
+                        vp02.zz.valeurWidth = vp02Load.zz.valeurWidth;
+                        vp02.zz.executer();
+
+                        vp03.zz.valeurHeight = vp03Load.zz.valeurHeight;
+                        vp03.zz.valeurWidth = vp03Load.zz.valeurWidth;
+                        vp03.zz.executer();
+                    }
+
+                    if(vp02Load.translation != null){
+                        vp02.translation.posX = vp02Load.translation.posX;
+                        vp02.translation.posY = vp02Load.translation.posY;
+                        vp02.translation.executer();
+
+
+                        vp03.translation.posX = vp03Load.translation.posX;
+                        vp03.translation.posY = vp03Load.translation.posY;
+                        vp03.translation.executer();
+
+                    }
+                    
+
+                    
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+            
+        });
+    }
 
     // Method to create a bordered pane
     private StackPane createBorderedPane(ImageView imageView) {

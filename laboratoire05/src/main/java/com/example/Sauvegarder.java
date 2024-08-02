@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Sauvegarder extends CommandeImage implements Serializable{
 
-    Observer vf;
+    transient Observer vf;
     Observer vp01;
     Observer vp02;
     ArrayList<Observer> mArrayList = new ArrayList<>();
@@ -25,9 +25,9 @@ public class Sauvegarder extends CommandeImage implements Serializable{
         
         try {
 
-            FileOutputStream fileOut = new FileOutputStream("Image.ser");
+            FileOutputStream fileOut = new FileOutputStream("D:\\testBranche\\Image.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fileOut);
-            mArrayList.add(vf);
+            //mArrayList.add(vf);
             mArrayList.add(vp01);
             mArrayList.add(vp02);
             oos.writeObject(mArrayList);

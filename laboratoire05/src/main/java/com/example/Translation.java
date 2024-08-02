@@ -1,10 +1,12 @@
 package com.example;
 
+import java.io.Serializable;
+
 import javafx.scene.image.ImageView;
 
-public class Translation extends CommandeImage{
+public class Translation extends CommandeImage implements  Serializable{
 
-    ImageView img;
+    transient ImageView img;
     Double posX = 0.0;
     Double posY = 0.0;
 
@@ -28,9 +30,9 @@ public class Translation extends CommandeImage{
 
     @Override
     public void executer(){
-        System.out.println("Translation a été exécutée");
-        img.setX(posX);
-        img.setY(posY);
+
+        img.setTranslateX(posX);
+        img.setTranslateY(posY);
     }   
     
 }
