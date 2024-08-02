@@ -14,6 +14,7 @@ public class Translation extends CommandeImage{
         this.img = img;
         this.posX = posX;
         this.posY = posY;
+        CommandeHistory.getInstance().push(Translation.this);
     }
 
     public double getX(){

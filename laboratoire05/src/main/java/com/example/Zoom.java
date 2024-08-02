@@ -12,6 +12,7 @@ public class Zoom extends CommandeImage{
         this.img = img; 
         this.valeurHeight = valeurHeight;
         this.valeurWidth = valeurWidth;
+        CommandeHistory.getInstance().push(Zoom.this);
     }
 
     public double getX(){
