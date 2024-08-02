@@ -25,15 +25,16 @@ public class CommandeHistory {
 
     public void push(CommandeImage c){
         //ajoute une commande c à la liste commandes
-        commandesHistory.add(c);
+        //commandesHistory.add(c);
         
     }
     public CommandeImage pop(){
         //retire la dernière commande de la liste
-        if (commandesHistory.isEmpty()) {
+        /* if (commandesHistory.isEmpty()) {
             return null; // or throw an exception, depending on your requirements
         }
-        return commandesHistory.remove(commandesHistory.size() - 1);
+        return commandesHistory.remove(commandesHistory.size() - 1); */
+        return null;
     }
 
 }

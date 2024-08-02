@@ -1,42 +1,36 @@
 package com.example;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class VuePerspective implements Observer{
+public class VuePerspective implements Observer {
 
     String nomPerspective;
     ImageView imageView02 = new ImageView();
     ImageView imageView03 = new ImageView();
     Zoom zz;
-    
+
     StackPane pane2 = createBorderedPane(imageView02);
     StackPane pane3 = createBorderedPane(imageView03);
-    
-    
-    
+
     public VuePerspective() {
-
-
-        //imageView02.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
-        //imageView03.setImage(new Image("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
-
+        // Initialize the ImageViews if needed
     }
 
     @Override
-    public void display(){
-
+    public void display() {
         pane2.setOnScroll((ScrollEvent event) -> {
             double zoomFactor = 1.05;
             double deltaY = event.getDeltaY();
-            
-            if (deltaY < 0){
+
+            if (deltaY < 0) {
                 zoomFactor = 0.95;
             }
-            
+
             event.consume();
 
             zz = new Zoom(imageView02, imageView02.getScaleX() * zoomFactor, imageView02.getScaleY() * zoomFactor);
@@ -59,11 +53,11 @@ public class VuePerspective implements Observer{
         pane3.setOnScroll((ScrollEvent event) -> {
             double zoomFactor = 1.05;
             double deltaY = event.getDeltaY();
-            
-            if (deltaY < 0){
+
+            if (deltaY < 0) {
                 zoomFactor = 0.95;
             }
-           
+
             event.consume();
 
             zz = new Zoom(imageView03, imageView03.getScaleX() * zoomFactor, imageView03.getScaleY() * zoomFactor);
@@ -72,59 +66,53 @@ public class VuePerspective implements Observer{
             System.err.println("test du scroll03");
         });
 
+        // Add mouse event handlers for dragging
+        addDragHandlers(imageView02, pane2);
+        addDragHandlers(imageView03, pane3);
     }
-
 
     private StackPane createBorderedPane(ImageView imageView) {
         StackPane stackPane = new StackPane();
         stackPane.getChildren().add(imageView);
 
-        // Create a border using Rectangle
-         Rectangle border = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
-        border.setFill(Color.TRANSPARENT); // Transparent fill for the rectangle
-        border.setStroke(Color.BLUE); // Blue stroke color for the border
-        border.setStrokeWidth(2); // Set the stroke width for better visibility
+        Rectangle border = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
+        border.setFill(Color.TRANSPARENT);
+        border.setStroke(Color.BLUE);
+        border.setStrokeWidth(2);
         stackPane.getChildren().add(border);
 
         return stackPane;
-
     }
 
-    /* public void setScroll(){
+    private void addDragHandlers(ImageView imageView, StackPane pane) {
+        final Delta dragDelta = new Delta();
 
-        //modelPerspective.setScaleXY(heigthDouble, widthDouble);
-        //modelPerspective.setScaleY(heigthDouble);
-        //image.
-
-        imageView02.setOnScroll((ScrollEvent event) -> {
-            double zoomFactor = 1.05;
-            double deltaY = event.getDeltaY();
-            
-            if (deltaY < 0){
-                zoomFactor = 0.95;
-            }
-            imageView02.setScaleX(imageView02.getScaleX() * zoomFactor);
-            imageView02.setScaleY(imageView02.getScaleY() * zoomFactor);
-            event.consume();
-            //System.out.println("test du scroll02");
+        imageView.setOnMousePressed(event -> {
+            dragDelta.x = imageView.getTranslateX() - event.getSceneX();
+            dragDelta.y = imageView.getTranslateY() - event.getSceneY();
         });
-        //image.display(heigthDouble, widthDouble);
 
-        imageView03.setOnScroll((ScrollEvent event) -> {
-            double zoomFactor = 1.05;
-            double deltaY = event.getDeltaY();
-            
-            if (deltaY < 0){
-                zoomFactor = 0.95;
-            }
-            imageView03.setScaleX(imageView03.getScaleX() * zoomFactor);
-            imageView03.setScaleY(imageView03.getScaleY() * zoomFactor);
-            event.consume();
-            //System.out.println("test du scroll03");
-        }); 
+        imageView.setOnMouseDragged(event -> {
+            double newTranslateX = event.getSceneX() + dragDelta.x;
+            double newTranslateY = event.getSceneY() + dragDelta.y;
 
+            // Limit the movement within the pane borders
+            double minX = 0 - (imageView.getBoundsInParent().getWidth() / 2);
+            double maxX = pane.getWidth() - (imageView.getBoundsInParent().getWidth() / 2);
+            double minY = 0 - (imageView.getBoundsInParent().getHeight() / 2);
+            double maxY = pane.getHeight() - (imageView.getBoundsInParent().getHeight() / 2);
 
-    }*/
+            if (newTranslateX < minX) newTranslateX = minX;
+            if (newTranslateX > maxX) newTranslateX = maxX;
+            if (newTranslateY < minY) newTranslateY = minY;
+            if (newTranslateY > maxY) newTranslateY = maxY;
 
+            imageView.setTranslateX(newTranslateX);
+            imageView.setTranslateY(newTranslateY);
+        });
+    }
 
+    private static class Delta {
+        double x, y;
+    }
 }

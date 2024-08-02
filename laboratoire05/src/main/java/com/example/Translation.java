@@ -26,6 +26,7 @@ public class Translation extends CommandeImage{
     }
 
 
+    @Override
     public void executer(){
         System.out.println("Translation a été exécutée");
         img.setX(posX);

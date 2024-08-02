@@ -38,6 +38,7 @@ public class Layout {
         }
     }
  */
+
     public void build(Stage primaryStage) {
         primaryStage.setTitle("Image Editor");
 
