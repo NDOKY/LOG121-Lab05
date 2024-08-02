@@ -25,7 +25,7 @@ public class Sauvegarder extends CommandeImage implements Serializable{
         
         try {
 
-            FileOutputStream fileOut = new FileOutputStream("D:\\testBranche\\Image.ser");
+            FileOutputStream fileOut = new FileOutputStream("Image.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fileOut);
             //mArrayList.add(vf);
             mArrayList.add(vp01);
